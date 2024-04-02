@@ -26,21 +26,43 @@ static TreeMap<Knihy,String> treeMap = new TreeMap<>();
         String author = sc.nextLine();
         System.out.println("Enter the avaibility");
 
-            Knihy.availability dostupnost=null;
-            System.out.println("Zadejte Dostupnost: case 1: pro dostupnost \n case 2: pro nedostupnost");
-            
-            int dostupnost_vstup_switch=sc.nextInt();
+        Knihy.availability dostupnost=null;
+        System.out.println("Zadejte Dostupnost: case 1: pro dostupnost \n case 2: pro nedostupnost");
+        
+        
 
-            switch (dostupnost_vstup_switch) {
-                case 1:
-                    dostupnost=Knihy.availability.dostupny;
-                    break;
-                case 2:
-                    dostupnost=Knihy.availability.nedostupny;
-                    break;
-                default:
-                    break;
+
+
+        while(true){
+
+            int dostupnost_vstup_switch;
+            try{
+
+                dostupnost_vstup_switch=sc.nextInt();        
+    
+            }catch(InputMismatchException e){
+                System.out.println("Zadej cislo blbecku");
+                sc.next();
+                continue;
             }
+
+            if(dostupnost_vstup_switch>2){
+                System.out.print("Zadejte cislo 1 nebo 2: ");
+                continue;
+            }
+
+            if(dostupnost_vstup_switch==1) {
+
+                dostupnost=Knihy.availability.dostupny;
+                break;
+            }else if(dostupnost_vstup_switch==2){
+
+                dostupnost=Knihy.availability.nedostupny;
+                break;
+            }
+
+        }
+
 
         System.out.println("Enter the release date of the book");
         int date=0;
