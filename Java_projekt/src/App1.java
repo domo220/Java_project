@@ -72,6 +72,6 @@ public class App1 {
                 default:
                         System.out.println("Nezadali jste cislo z nabizeneho vyberu\n");
             }    
-        }while(dataOK);
+        }while(x!=8);
     }
 }
