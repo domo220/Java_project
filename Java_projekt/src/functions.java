@@ -9,28 +9,34 @@ public class functions {
 
     static TreeMap<Knihy,String> treeMap = new TreeMap<>();
 
+    public static void dbEntryPoint(TreeMap<Knihy, String> newmap){
+        treeMap = newmap;
+    }
+
+    public static TreeMap<Knihy,String> dbCollectionPoint(){
+        return treeMap;
+    }
+
     //Funkce pro pridani objektu do treemap
     public static void addname(){
 
         Scanner sc = new Scanner(System.in);
         String x;
+        System.out.println("Pro pridání knihy prosím zadejte informace o dané knihe.");
         do{
-            System.out.println("Choose if u want novel or textbook:");
+            System.out.println("Vyberte o jakou knihu jde (napíšte slovem): \"novel\" nebo \"textbook\": ");
              x = sc.nextLine();
         } while(!x.equals("novel") && !x.equals("textbook"));
         
 
-        System.out.println("Enter the name of book");
+        System.out.println("Zadejte název knihy: ");
         String name = sc.nextLine();
-        System.out.println("Enter the name of author");
+        System.out.println("Zadejte meno autora/autorky: ");
         String author = sc.nextLine();
-        System.out.println("Enter the avaibility");
+        //System.out.println("Enter the avaibility");
 
         Knihy.availability dostupnost=null;
-        System.out.println("Zadejte Dostupnost: \ncase 1: pro dostupnost \ncase 2: pro nedostupnost");
-        
-        
-
+        System.out.println("Zadejte Dostupnost: \ncase 1: pro dostupné \ncase 2: pro nedostupné");
 
 
         while(true){
@@ -41,13 +47,13 @@ public class functions {
                 dostupnost_vstup_switch=sc.nextInt();        
     
             }catch(InputMismatchException e){
-                System.out.println("Zadej cislo blbecku");
+                System.out.println("Zadejte číslo prosím!");
                 sc.next();
                 continue;
             }
 
             if(dostupnost_vstup_switch>2){
-                System.out.print("Zadejte cislo 1 nebo 2: ");
+                System.out.print("Zadejte číslo 1 pro dostupné nebo 2 pro nedostupné!: ");
                 continue;
             }
 
@@ -64,7 +70,7 @@ public class functions {
         }
 
 
-        System.out.println("Enter the release date of the book");
+        System.out.println("Zadejte rok vydání: ");
         int date=0;
         while(true){
 
@@ -86,14 +92,14 @@ public class functions {
                 }
                 
             }else{
-                System.out.println("Zadejte cislo");
+                System.out.println("Zadejte čislo: ");
                 continue;
             }
         }
 
         novel.genre zanr=null; 
         if(x.equals("novel")){
-            System.out.println("Zadejte Zanr: Scifi, Fantasy, Mistery, Fiction, Romance");
+            System.out.println("Zadejte Žánr: Scifi, Fantasy, Mystery, Fiction, Romance");
             
             boolean konec_zanr = true;
             while(konec_zanr){
@@ -108,7 +114,7 @@ public class functions {
                         zanr=novel.genre.Fantasy;
                         konec_zanr = false;
                         break;
-                    case "Mistery":
+                    case "Mystery":
                         zanr=novel.genre.Mistery;
                         konec_zanr = false;
                         break;
@@ -121,7 +127,7 @@ public class functions {
                         konec_zanr = false;
                         break;
                     default:
-                        System.out.println("Blbecku zadej spravny zanr");
+                        System.out.println("Prosím zadajte žánr z výběru!");
                         break;
                 }
             }

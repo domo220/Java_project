@@ -1,3 +1,4 @@
+import javax.xml.crypto.Data;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -11,7 +12,11 @@ public class App1 {
         String green = "\u001B[32m";
         String yellow = "\u001B[33m";
 
+        // Nacitanie dát z databáze
+        functions.dbEntryPoint(Database.DataLoadFromDatabase());
+
         int x=0;
+        boolean dataOK = false;
         do{
             System.out.println(blue + "\n********** Zadejte jakou akci chete provest. **********\n" + reset);
             System.out.println("case 1: Pridani ucebnice nebo romanu.");
@@ -20,8 +25,8 @@ public class App1 {
             System.out.println("case 4: Vyhledani knihy podle nazvu");
             System.out.println("case 5: Editace dostupnosti knihy");
             System.out.println("case 6: ");
-            System.out.println("case 7: Vypis knih ");
-            System.out.println("case 8: Ukonceni programu ");
+            System.out.println("case 7: Vypis knih");
+            System.out.println("case 8: Ukonceni programu");
             System.out.print("Zadejte cislo: ");
             try{
                 x=sc.nextInt();
@@ -49,14 +54,24 @@ public class App1 {
                     break;
                 case 6:
 
-                break;
+                    break;
                 case 7:
                     functions.list_of_books();
-                break;
+                    break;
+                case 8:
+                    if (Database.DataCollectionToDatabase(functions.dbCollectionPoint())){
+                        System.out.println("Ulozenie do databaze prebehlo úspešne!");
+                        dataOK = true;
+                        break;
+                    }
+                    else {
+                        System.out.println("Ulozenie do databaze zlyhalo!");
+                        dataOK = false;
+                        break;
+                    }
                 default:
-                    if(x!=8)
-                    System.out.println("Nezadali jste cislo z nabizeneho vyberu\n");
+                        System.out.println("Nezadali jste cislo z nabizeneho vyberu\n");
             }    
-        }while(x!=8);           
+        }while(dataOK);
     }
 }
