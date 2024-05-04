@@ -1,8 +1,5 @@
+import java.sql.*;
 import java.util.TreeMap;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Map;
 public class Database {
 
@@ -12,17 +9,14 @@ public class Database {
 
     //Funkcia, ktora vezme data a ulozi ich do db
     public static boolean DataCollectionToDatabase(TreeMap<Knihy, String> Data){
-        // JDBC variables for managing database connection
 
         Connection conn = null;
         PreparedStatement sql1 = null;
         PreparedStatement sql2 = null;
 
         try {
-            // Open a connection
             conn = DriverManager.getConnection(DB_URL, username, password);
 
-            // SQL query to delete all rows from the table
             String sqlDeleteNovel = "DELETE FROM novel";
             String sqlDeleteTextbook = "DELETE FROM textbook";
 
@@ -47,7 +41,6 @@ public class Database {
                     sql2.setString(5, novel.getZanr().toString());
 
                     sql2.executeUpdate();
-                    // DATABASE: Pridat no databaze novel
 
                 } else if (book instanceof textbook) {
                     textbook textbook = (textbook) book;
@@ -63,7 +56,6 @@ public class Database {
                     sql2.setInt(5, textbook.getRocnik());
 
                     sql2.executeUpdate();
-                    // DATABASE: Pridat do databaze textbook
 
                 }
             }
@@ -95,16 +87,60 @@ public class Database {
 
     //Funkcia, ktora vezme data z database a vrati hodnotu.
     public static TreeMap<Knihy, String> DataLoadFromDatabase(){
-        TreeMap<Knihy,String> Data = new TreeMap<>();
 
-        textbook book1 = new textbook("Roman", "Test", Knihy.availability.dostupny, 1245, 5);
-        textbook book2 = new textbook("Peter", "Neviem", Knihy.availability.nedostupny, 4321, 1);
-        textbook book3 = new textbook("Ferino", "Jozo", Knihy.availability.dostupny, 2134, 9);
-        novel kniha1 = new novel("Ferio", "Jzo", Knihy.availability.dostupny, 2134, novel.genre.Scifi);
-        Data.put(book1, "textbook");
-        Data.put(book2, "textbook");
-        Data.put(book3, "textbook");
-        Data.put(kniha1, "novel");
-        return Data;
+        Connection conn = null;
+        PreparedStatement sql = null;
+        ResultSet resultSet = null;
+        TreeMap<Knihy, String> dataCollection = new TreeMap<>();
+
+        try {
+
+            conn = DriverManager.getConnection(DB_URL, username, password);
+
+            String sqlQueryNovel = "SELECT novel_name, novel_author, novel_availability, novel_date, novel_genre FROM novel";
+            sql = conn.prepareStatement(sqlQueryNovel);
+            resultSet = sql.executeQuery();
+
+            while (resultSet.next()) {
+                String name = resultSet.getString("novel_name");
+                String author = resultSet.getString("novel_author");
+                String availabilityStr = resultSet.getString("novel_availability");
+                Knihy.availability availability = Knihy.availability.valueOf(availabilityStr);
+                int releaseDate = resultSet.getInt("novel_date");
+                String genreStr = resultSet.getString("novel_genre");
+                novel.genre genre = novel.genre.valueOf(genreStr);
+
+                novel novelBook = new novel(name, author, availability, releaseDate, genre);
+                dataCollection.put(novelBook, "novel");
+            }
+
+            String sqlQueryTextbook = "SELECT textbook_name, textbook_author, textbook_availability, textbook_date, textbook_rocnik FROM textbook";
+            sql = conn.prepareStatement(sqlQueryTextbook);
+            resultSet = sql.executeQuery();
+
+            while (resultSet.next()) {
+                String name = resultSet.getString("textbook_name");
+                String author = resultSet.getString("textbook_author");
+                String availabilityStr = resultSet.getString("textbook_availability");
+                Knihy.availability availability = Knihy.availability.valueOf(availabilityStr);
+                int releaseDate = resultSet.getInt("textbook_date");
+                int rocnik = resultSet.getInt("textbook_rocnik");
+
+                textbook textbookBook = new textbook(name, author, availability, releaseDate, rocnik);
+                dataCollection.put(textbookBook, "textbook");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (sql != null) sql.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        return dataCollection;
     }
 }
