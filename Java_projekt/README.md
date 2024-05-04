@@ -1,18 +1,41 @@
-## Getting Started
+# Java Project
+## Contributors
+### Roman Štofa [GIT](https://github.com/Karelabiss)
+### Dominik Šrenk [GIT](https://github.com/domo220)
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Databáza
+Databáza bola vypracovaná na základe pripojenia k externému serveru a nie do súboru.
 
-## Folder Structure
+V našom prípade ide o MySQL server na localhoste pomocou aplikácie XAMPP.
 
-The workspace contains two folders by default, where:
+Ako connection string tak aj prihlasovacie údaje sú špecifikované na začiatku metódy Database.java.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+![img.png](img.png)
+> Databáza obsahuje dve tabuľky "textbook" a "novel". Tie sa nachádzajú v databáze s menom "java_projekt".
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+Daná databáza obsahuje 2 tabuľky:
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+- textbook
+- novel
 
-## Dependency Management
+Tabuľka "novel" obsajuje polia:
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+|     **Stĺpec**     | **Typ** | **dĺžka** |
+|:------------------:|:-------:|:---------:|
+|     novel_name     | VARCHAR |    100    |  
+|    novel_author    | VARCHAR |    100    | 
+| novel_availability | VARCHAR |    100    |  
+|     novel_date     |   INT   |    255    | 
+|    novel_genre     | VARCHAR |    100    |
+
+Tabuľka "textbook" obsajuje polia:
+
+|      **Stĺpec**       | **Typ** | **dĺžka** |
+|:---------------------:|:-------:|:---------:|
+|     textbook_name     | VARCHAR |    100    |  
+|    textbook_author    | VARCHAR |    100    | 
+| textbook_availability | VARCHAR |    100    |  
+|     textbook_date     |   INT   |    255    | 
+|    textbook_rocnik    |   INT   |    32     |
+
+![img_1.png](img_1.png)
