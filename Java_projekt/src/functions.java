@@ -160,36 +160,37 @@ public class functions {
     public static void vypisAutor(){
 
         Scanner sc = new Scanner(System.in);
-        System.out.print("Zadejte jmeno autora, kterou chcete vyhledat: ");
+        System.out.print("Zadejte jmeno autora knihy, kterou chcete vyhledat: ");
         String book_autor = sc.nextLine();
+        List<Knihy> knihyByAuthor = new ArrayList<>();
 
-        String KeyName=null;
-        Knihy book=null;
         for (Map.Entry<Knihy, String> entry : treeMap.entrySet()) {
-            book = entry.getKey();
-            KeyName=book.getAuthor();
-
-            if (book_autor.equals(KeyName)){
-                if (book instanceof novel) {
-                    novel novel = (novel) book;
-                    System.out.println("Nazev knihy: " + novel.getName_book() +
-                            ", Autor knihy: " + novel.getAuthor() +
-                            ", Rok vydani: " + novel.getRelease_date() +
-                            ", Stav dostupnosti: " + novel.getAvaibility() +
-                            ", Zanr: " + novel.getZanr());
-                    continue;
-                } else if (book instanceof textbook) {
-                    textbook textbook = (textbook) book;
-                    System.out.println("Nazev knihy: " + textbook.getName_book() +
-                            ", Autor knihy: " + textbook.getAuthor() +
-                            ", Rok vydani: " + textbook.getRelease_date() +
-                            ", Stav dostupnosti: " + textbook.getAvaibility() +
-                            ", Rocnik: " + textbook.getRocnik());
-                    continue;
-                }
-                break;
+            Knihy book = entry.getKey();
+            if (book.getAuthor().equals(book_autor)) {
+                knihyByAuthor.add(book);
             }
         }
+
+        Collections.sort(knihyByAuthor, Comparator.comparingInt(Knihy::getRelease_date));
+
+        for (Knihy book : knihyByAuthor) {
+            if (book instanceof novel) {
+                novel novel = (novel) book;
+                System.out.println("Nazev knihy: " + novel.getName_book() +
+                        ", Autor knihy: " + novel.getAuthor() +
+                        ", Rok vydani: " + novel.getRelease_date() +
+                        ", Stav dostupnosti: " + novel.getAvaibility() +
+                        ", Zanr: " + novel.getZanr());
+            } else if (book instanceof textbook) {
+                textbook textbook = (textbook) book;
+                System.out.println("Nazev knihy: " + textbook.getName_book() +
+                        ", Autor knihy: " + textbook.getAuthor() +
+                        ", Rok vydani: " + textbook.getRelease_date() +
+                        ", Stav dostupnosti: " + textbook.getAvaibility() +
+                        ", Rocnik: " + textbook.getRocnik());
+            }
+        }
+    
     }
 
     //Funkce pro pridani objektu do treemap
