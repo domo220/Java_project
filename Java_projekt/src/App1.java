@@ -24,9 +24,11 @@ public class App1 {
             System.out.println("case 3: Smazani novely/textbooku.");
             System.out.println("case 4: Vyhledani knihy podle nazvu");
             System.out.println("case 5: Editace dostupnosti knihy");
-            System.out.println("case 6: ");
-            System.out.println("case 7: Vypis knih");
-            System.out.println("case 8: Ukonceni programu");
+            System.out.println("case 6: Vypis podla autora");
+            System.out.println("case 7: Vypis podla zanru");
+            System.out.println("case 8: Vypis vypujicenych knih");
+            System.out.println("case 9: Vypis knih");
+            System.out.println("case 10: Ukonceni programu");
             System.out.print("Zadejte cislo: ");
             try{
                 x=sc.nextInt();
@@ -53,12 +55,18 @@ public class App1 {
                     functions.borrow_book();
                     break;
                 case 6:
-
+                    functions.vypisAutor();
                     break;
                 case 7:
-                    functions.list_of_books();
+                    functions.vypisZanr();
                     break;
                 case 8:
+                    functions.vypisDostupnoti();
+                    break;
+                case 9:
+                    functions.list_of_books();
+                    break;
+                case 10:
                     if (Database.DataCollectionToDatabase(functions.dbCollectionPoint())){
                         System.out.println("Ulozenie do databaze prebehlo úspešne!");
                         dataOK = true;
@@ -72,6 +80,6 @@ public class App1 {
                 default:
                         System.out.println("Nezadali jste cislo z nabizeneho vyberu\n");
             }    
-        }while(x!=8);
+        }while(x!=10);
     }
 }

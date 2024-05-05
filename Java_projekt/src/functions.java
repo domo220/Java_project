@@ -1,8 +1,5 @@
 import java.time.LocalDateTime;
-import java.util.InputMismatchException;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.TreeMap;
+import java.util.*;
 
 public class functions {
     
@@ -15,6 +12,184 @@ public class functions {
 
     public static TreeMap<Knihy,String> dbCollectionPoint(){
         return treeMap;
+    }
+
+    public static void vypisZanr(){
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Zadejte Žánr: Scifi, Fantasy, Mystery, Fiction, Romance");
+
+        novel.genre zanr = null;
+        boolean konec_zanr = true;
+        while(konec_zanr){
+
+            String zanr_vstup_switch=sc.nextLine();
+            switch (zanr_vstup_switch) {
+                case "Scifi":
+                    for (Map.Entry<Knihy, String> entry : treeMap.entrySet()) {
+                        Knihy book = entry.getKey();
+                        if (book instanceof novel) {
+                            novel novel = (novel) book;
+                            if (novel.getZanr().toString() == "Scifi") {
+                                System.out.println("Nazev knihy: " + novel.getName_book() +
+                                        ", Autor knihy: " + novel.getAuthor() +
+                                        ", Rok vydani: " + novel.getRelease_date() +
+                                        ", Stav dostupnosti: " + novel.getAvaibility() +
+                                        ", Zanr: " + novel.getZanr() + ", Román");
+                            }
+                        } else {
+                            continue;
+                        }
+
+                    }
+                    konec_zanr = false;
+                    break;
+                case "Fantasy":
+                    for (Map.Entry<Knihy, String> entry : treeMap.entrySet()) {
+                        Knihy book = entry.getKey();
+                        if (book instanceof novel) {
+                            novel novel = (novel) book;
+                            if (novel.getZanr().toString() == "Fantasy") {
+                                System.out.println("Nazev knihy: " + novel.getName_book() +
+                                        ", Autor knihy: " + novel.getAuthor() +
+                                        ", Rok vydani: " + novel.getRelease_date() +
+                                        ", Stav dostupnosti: " + novel.getAvaibility() +
+                                        ", Zanr: " + novel.getZanr() + ", Román");
+                            }
+                        } else {
+                            continue;
+                        }
+
+                    }
+                    konec_zanr = false;
+                    break;
+                case "Mystery":
+                    for (Map.Entry<Knihy, String> entry : treeMap.entrySet()) {
+                        Knihy book = entry.getKey();
+                        if (book instanceof novel) {
+                            novel novel = (novel) book;
+                            if (novel.getZanr().toString() == "Mystery") {
+                                System.out.println("Nazev knihy: " + novel.getName_book() +
+                                        ", Autor knihy: " + novel.getAuthor() +
+                                        ", Rok vydani: " + novel.getRelease_date() +
+                                        ", Stav dostupnosti: " + novel.getAvaibility() +
+                                        ", Zanr: " + novel.getZanr() + ", Román");
+                            }
+                        } else {
+                            continue;
+                        }
+
+                    }
+                    konec_zanr = false;
+                    break;
+                case "Fiction":
+                    for (Map.Entry<Knihy, String> entry : treeMap.entrySet()) {
+                        Knihy book = entry.getKey();
+                        if (book instanceof novel) {
+                            novel novel = (novel) book;
+                            if (novel.getZanr().toString() == "Fiction") {
+                                System.out.println("Nazev knihy: " + novel.getName_book() +
+                                        ", Autor knihy: " + novel.getAuthor() +
+                                        ", Rok vydani: " + novel.getRelease_date() +
+                                        ", Stav dostupnosti: " + novel.getAvaibility() +
+                                        ", Zanr: " + novel.getZanr() + ", Román");
+                            }
+                        } else {
+                            continue;
+                        }
+
+                    }
+                    konec_zanr = false;
+                    break;
+                case "Romance":
+                    for (Map.Entry<Knihy, String> entry : treeMap.entrySet()) {
+                        Knihy book = entry.getKey();
+                        if (book instanceof novel) {
+                            novel novel = (novel) book;
+                            if (novel.getZanr().toString() == "Romance") {
+                                System.out.println("Nazev knihy: " + novel.getName_book() +
+                                        ", Autor knihy: " + novel.getAuthor() +
+                                        ", Rok vydani: " + novel.getRelease_date() +
+                                        ", Stav dostupnosti: " + novel.getAvaibility() +
+                                        ", Zanr: " + novel.getZanr() + ", Román");
+                            }
+                        } else {
+                            continue;
+                        }
+
+                    }
+                    konec_zanr = false;
+                    break;
+                default:
+                    System.out.println("Prosím zadajte žánr z výběru!");
+                    break;
+            }
+        }
+
+    }
+
+    public static void vypisDostupnoti() {
+        for (Map.Entry<Knihy, String> entry : treeMap.entrySet()) {
+            Knihy book = entry.getKey();
+
+            if (book instanceof novel) {
+                novel novel = (novel) book;
+                if (novel.getAvaibility() != Knihy.availability.dostupny) {
+                    System.out.println("Nazev knihy: " + novel.getName_book() +
+                            ", Autor knihy: " + novel.getAuthor() +
+                            ", Rok vydani: " + novel.getRelease_date() +
+                            ", Stav dostupnosti: " + novel.getAvaibility() +
+                            ", Zanr: " + novel.getZanr() + ", Román");
+                }
+            } else if (book instanceof textbook) {
+                textbook textbook = (textbook) book;
+                if (textbook.getAvaibility() != Knihy.availability.dostupny) {
+                    System.out.println("Nazev knihy: " + textbook.getName_book() +
+                            ", Autor knihy: " + textbook.getAuthor() +
+                            ", Rok vydani: " + textbook.getRelease_date() +
+                            ", Stav dostupnosti: " + textbook.getAvaibility() +
+                            ", Rocnik: " + textbook.getRocnik() + ", Učebnice");
+                }
+            }
+
+        }
+
+    }
+
+    public static void vypisAutor(){
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Zadejte jmeno autora, kterou chcete vyhledat: ");
+        String book_autor = sc.nextLine();
+
+        String KeyName=null;
+        Knihy book=null;
+        for (Map.Entry<Knihy, String> entry : treeMap.entrySet()) {
+            book = entry.getKey();
+            KeyName=book.getAuthor();
+
+            if (book_autor.equals(KeyName)){
+                if (book instanceof novel) {
+                    novel novel = (novel) book;
+                    System.out.println("Nazev knihy: " + novel.getName_book() +
+                            ", Autor knihy: " + novel.getAuthor() +
+                            ", Rok vydani: " + novel.getRelease_date() +
+                            ", Stav dostupnosti: " + novel.getAvaibility() +
+                            ", Zanr: " + novel.getZanr());
+                    continue;
+                } else if (book instanceof textbook) {
+                    textbook textbook = (textbook) book;
+                    System.out.println("Nazev knihy: " + textbook.getName_book() +
+                            ", Autor knihy: " + textbook.getAuthor() +
+                            ", Rok vydani: " + textbook.getRelease_date() +
+                            ", Stav dostupnosti: " + textbook.getAvaibility() +
+                            ", Rocnik: " + textbook.getRocnik());
+                    continue;
+                }
+                break;
+            }
+        }
     }
 
     //Funkce pro pridani objektu do treemap
@@ -31,9 +206,8 @@ public class functions {
 
         System.out.println("Zadejte název knihy: ");
         String name = sc.nextLine();
-        System.out.println("Zadejte meno autora/autorky: ");
+        System.out.println("Zadejte jmeno autora/autorky: ");
         String author = sc.nextLine();
-        //System.out.println("Enter the avaibility");
 
         Knihy.availability dostupnost=null;
         System.out.println("Zadejte Dostupnost: \ncase 1: pro dostupné \ncase 2: pro nedostupné");
@@ -115,7 +289,7 @@ public class functions {
                         konec_zanr = false;
                         break;
                     case "Mystery":
-                        zanr=novel.genre.Mistery;
+                        zanr=novel.genre.Mystery;
                         konec_zanr = false;
                         break;
                         case "Fiction":
@@ -210,7 +384,6 @@ public class functions {
     public static void list_of_books(){
         for (Map.Entry<Knihy, String> entry : treeMap.entrySet()) {
             Knihy book = entry.getKey();
-            System.out.println("Debug: "+book.getName_book()+"  "+book.getAuthor()+book.getAvaibility()+book.getRelease_date());//kdyz uzivatel zada prvni pismeno velke, tak se to neradi podle abecedy, idk proc
             if (book instanceof novel) {
                 novel novel = (novel) book;
                 System.out.println("Nazev knihy: " + novel.getName_book() +
