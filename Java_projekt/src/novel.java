@@ -11,7 +11,7 @@ public class novel extends Knihy{
     public enum genre {
         Scifi,
         Fantasy,
-        Mistery,
+        Mystery,
         Romance,
         Fiction
     }
